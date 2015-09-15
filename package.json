@@ -1,20 +1,16 @@
 {
-  "name": "referencia",
-  "version": "0.0.0",
+  "name": "nogueira-consumer",
+  "version": "0.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": {
-    "name": "",
-    "email": "",
-    "url": ""
+    "name": "Carbono Team",
+    "email": "team@carbono.io"
   },
   "license": "ISC",
-  "foomod": {
-    "foo": "file:./foomod/foo.js"
-  },
   "devDependencies": {
     "chai": "3.2.0",
     "gulp": "3.9.0",
@@ -27,5 +23,10 @@
     "jshint-stylish": "2.0.1",
     "mocha": "2.2.5",
     "sinon": "1.15.4"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.2.0",
+    "carbono-docker": "0.0.4",
+    "sqs-consumer": "^2.2.0"
   }
 }
