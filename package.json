@@ -27,6 +27,8 @@
   "dependencies": {
     "aws-sdk": "^2.2.0",
     "carbono-docker": "0.0.4",
+    "q": "^1.4.1",
+    "request": "^2.64.0",
     "sqs-consumer": "^2.2.0"
   }
 }
