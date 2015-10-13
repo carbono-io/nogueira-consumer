@@ -27,8 +27,11 @@ var app = sqsConsumer.create({
     handleMessage: function (message, done) {
         console.log("message received");
 
+        var route = message.MessageAttributes.route.StringValue;
+        var marathonAppId = route.replace(/\//g, "");
+
         var app = {
-            id: message.MessageAttributes.imageName.StringValue,
+            id: marathonAppId,
             cpus: 1,
             mem: 64,
             instances: 1,
@@ -57,12 +60,9 @@ var app = sqsConsumer.create({
 
         promise
             .then(function (result) {
-                var marathonAppId = result.id.split("/")[1];
-                var route = message.MessageAttributes.route.StringValue;
-                var filename = route.replace(/\//g, "");
                 var script = 'script/ansible.sh';
 
-                var args = [MARATHON_URL, marathonAppId, route, filename];
+                var args = [MARATHON_URL, marathonAppId, route];
                 
                 execFile(script, args, function(err, stdout, stderr) {
                     console.log(err);

@@ -28,6 +28,6 @@
   roles: 
     - role: proxy-update
       route: "{{route}}"
-      filename: "{{filename}}"
+      filename: "{{marathon_app_id}}"
       server_url: "google.com"
       tags: ['proxy-update']
