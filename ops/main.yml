@@ -25,7 +25,6 @@
 
 - name: Proxy Update
   hosts: proxyserver
-  gather_facts: no
   roles: 
     - role: proxy-update
       route: "{{route}}"
