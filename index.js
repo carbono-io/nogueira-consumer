@@ -7,12 +7,21 @@ var Marathon    = require('./lib/carbono-mesos').Marathon;
 var queueUrl = 
     'https://sqs.us-east-1.amazonaws.com/891008257771/homolog_carbono_paas';
 
-var DEFAULT_API_VERSION = '2012-11-05';
-var DEFAULT_REGION = 'us-east-1';
-var MARATHON_URL = process.env.MARATHON_URL;
+var DEFAULT_CONTAINER_PORT = 8080;
+var DEFAULT_API_VERSION    = '2012-11-05';
+var DEFAULT_REGION         = 'us-east-1';
+var MARATHON_URL           = process.env.MARATHON_URL;
+var SLAVE_URL              = process.env.SLAVE_URL || '10.1.4.85';
 
 if (typeof MARATHON_URL === 'undefined') {
     console.log("Environment variable MARATHON_URL cannot be empty!");
+    console.log("Define it before proceeding.");
+
+    process.exit(1);
+}
+
+if (typeof SLAVE_URL === 'undefined') {
+    console.log("Environment variable SLAVE_URL cannot be empty!");
     console.log("Define it before proceeding.");
 
     process.exit(1);
@@ -41,7 +50,7 @@ var app = sqsConsumer.create({
                     "image": message.MessageAttributes.imageName.StringValue,
                     "network": "BRIDGE", 
                     "portMappings": [{
-                        "containerPort": 8080, 
+                        "containerPort": DEFAULT_CONTAINER_PORT, 
                         "hostPort": 31100, 
                         "protocol": "tcp" 
                     }]
@@ -62,7 +71,13 @@ var app = sqsConsumer.create({
             .then(function (result) {
                 var script = 'script/ansible.sh';
 
-                var args = [MARATHON_URL, marathonAppId, route];
+                var args = [
+                    MARATHON_URL, 
+                    marathonAppId, 
+                    route, 
+                    SLAVE_URL, 
+                    DEFAULT_CONTAINER_PORT
+                ];
                 
                 execFile(script, args, function(err, stdout, stderr) {
                     console.log(err);

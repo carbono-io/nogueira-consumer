@@ -29,5 +29,6 @@
     - role: proxy-update
       route: "{{route}}"
       filename: "{{marathon_app_id}}"
-      server_url: "google.com"
+      slave_url: "{{slave_url}}"
+      container_port: "{{container_port}}"
       tags: ['proxy-update']

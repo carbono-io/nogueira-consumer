@@ -2,4 +2,4 @@
 
 cd ops
 ansible-playbook main.yml \
-    --extra-vars "marathon_url=$1 marathon_app_id=$2 route=$3"
+    --extra-vars "marathon_url=$1 marathon_app_id=$2 route=$3 slave_url=$4 container_port=$5"
