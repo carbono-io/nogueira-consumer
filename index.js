@@ -74,7 +74,7 @@ var app = sqsConsumer.create({
                     marathonAppId, 
                     route, 
                     SLAVE_URL, 
-                    DEFAULT_CONTAINER_PORT
+                    31100
                 ];
                 
                 execFile(script, args, function(err, stdout, stderr) {
