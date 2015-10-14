@@ -23,8 +23,6 @@ if (typeof MARATHON_URL === 'undefined') {
 if (typeof SLAVE_URL === 'undefined') {
     console.log("Environment variable SLAVE_URL cannot be empty!");
     console.log("Define it before proceeding.");
-
-    process.exit(1);
 }
 
 var marathon = new Marathon(MARATHON_URL);
