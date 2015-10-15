@@ -1,7 +1,7 @@
 ---
 
 - name: Deployment Polling
-  uri: 
+  uri:
     url: http://{{marathon_url}}/v2/apps/{{marathon_app_id}}
     method: GET
     return_content: yes
@@ -11,10 +11,8 @@
   delay: 4
 
 - name: Port Discovery
-  uri: 
+  uri:
     url: http://{{marathon_url}}/v2/apps/{{marathon_app_id}}
     method: GET
     return_content: yes
   register: res
-
-- debug: var=res

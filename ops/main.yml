@@ -31,5 +31,5 @@
       route: "{{route}}"
       filename: "{{marathon_app_id}}"
       slave_url: "{{slave_url}}"
-      container_port: "{{container_port}}"
+      container_port: "{{ hostvars.localhost.res.json.app.tasks[0].ports[0] }}"
       tags: ['proxy-update']
