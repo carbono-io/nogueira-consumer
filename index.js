@@ -56,7 +56,7 @@ var app = sqsConsumer.create({
                     "network": "BRIDGE", 
                     "portMappings": [{
                         "containerPort": DEFAULT_CONTAINER_PORT, 
-                        "hostPort": 31100, 
+                        "hostPort": 0, 
                         "protocol": "tcp" 
                     }]
                 },
@@ -80,8 +80,7 @@ var app = sqsConsumer.create({
                     MARATHON_URL, 
                     marathonAppId, 
                     route, 
-                    SLAVE_URL, 
-                    31100
+                    SLAVE_URL
                 ];
                 
                 execFile(script, args, function(err, stdout, stderr) {
