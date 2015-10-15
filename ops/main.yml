@@ -4,9 +4,10 @@
   hosts: local
   gather_facts: no
   roles:
-    - role: deployment-polling
+    - role: app-deployment
       marathon_url: "{{marathon_url}}"
       marathon_app_id: "{{marathon_app_id}}"
+      tags: ['app-deployment']
 
 - name: Get proxy server IP address
   hosts: local

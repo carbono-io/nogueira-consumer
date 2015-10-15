@@ -9,3 +9,12 @@
   until: "{{res.json.app.deployments|length}} == 0"
   retries: 10
   delay: 4
+
+- name: Port Discovery
+  uri: 
+    url: http://{{marathon_url}}/v2/apps/{{marathon_app_id}}
+    method: GET
+    return_content: yes
+  register: res
+
+- debug: var=res
