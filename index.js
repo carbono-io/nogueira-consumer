@@ -46,7 +46,7 @@ var app = sqsConsumer.create({
 
         var app = {
             id: marathonAppId,
-            cpus: 1,
+            cpus: 0.1,
             mem: 64,
             instances: 1,
             container: {
@@ -87,6 +87,7 @@ var app = sqsConsumer.create({
                     console.log(err);
                     console.log(stdout);
                     console.log(stderr);
+                    done();
                 });
             }, function (err) {
                 console.log(err);
