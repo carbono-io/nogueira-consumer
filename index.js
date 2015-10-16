@@ -53,11 +53,11 @@ var app = sqsConsumer.create({
                 type: "DOCKER",
                 docker: {
                     "image": message.MessageAttributes.imageName.StringValue,
-                    "network": "BRIDGE", 
+                    "network": "BRIDGE",
                     "portMappings": [{
-                        "containerPort": DEFAULT_CONTAINER_PORT, 
-                        "hostPort": 0, 
-                        "protocol": "tcp" 
+                        "containerPort": DEFAULT_CONTAINER_PORT,
+                        "hostPort": 0,
+                        "protocol": "tcp"
                     }]
                 },
                 volumes: [
@@ -77,12 +77,12 @@ var app = sqsConsumer.create({
                 var script = 'script/ansible.sh';
 
                 var args = [
-                    MARATHON_URL, 
-                    marathonAppId, 
-                    route, 
+                    MARATHON_URL,
+                    marathonAppId,
+                    route,
                     SLAVE_URL
                 ];
-                
+
                 execFile(script, args, function(err, stdout, stderr) {
                     console.log(err);
                     console.log(stdout);
