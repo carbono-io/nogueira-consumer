@@ -18,4 +18,4 @@ WORKDIR /home/consumer/nogueira-consumer
 
 ENV AWS_DEFAULT_REGION us-east-1
 
-#ENTRYPOINT ["node", "."]
+ENTRYPOINT ["node", "."]

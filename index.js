@@ -46,8 +46,8 @@ var app = sqsConsumer.create({
 
         var app = {
             id: marathonAppId,
-            cpus: 0.1,
-            mem: 64,
+            cpus: 0.01,
+            mem: 30,
             instances: 1,
             container: {
                 type: "DOCKER",
@@ -91,9 +91,6 @@ var app = sqsConsumer.create({
                 });
             }, function (err) {
                 console.log(err);
-            })
-            .done(function () {
-                // done();
             });
     }
 });
