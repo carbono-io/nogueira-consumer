@@ -1,0 +1,35 @@
+---
+
+- name: Deployment Polling
+  hosts: local
+  gather_facts: no
+  roles:
+    - role: app-deployment
+      marathon_url: "{{marathon_url}}"
+      marathon_app_id: "{{marathon_app_id}}"
+      tags: ['app-deployment']
+
+- name: Get proxy server IP address
+  hosts: local
+  gather_facts: no
+  tasks:
+    - name: Get proxy IP from CloudFormation template
+      command: bash -c "aws cloudformation describe-stacks --stack-name staging-proxy-server --query 'Stacks[0].Outputs[0].OutputValue' | cut -d '"\""' -f 2"
+      register: proxy_ip
+    - name: Register proxy server IP address to in-memory inventory
+      add_host: >
+        name=proxyserver
+        ansible_ssh_host={{proxy_ip.stdout}}
+        ansible_ssh_user=centos
+        ansible_ssh_private_key_file="{{ lookup('env','PROXY_PRIVATE_KEY') }}"
+        groups=staging_proxy
+
+- name: Proxy Update
+  hosts: proxyserver
+  roles:
+    - role: proxy-update
+      route: "{{route}}"
+      filename: "{{marathon_app_id}}"
+      slave_url: "{{slave_url}}"
+      container_port: "{{ hostvars.localhost.res.json.app.tasks[0].ports[0] }}"
+      tags: ['proxy-update']

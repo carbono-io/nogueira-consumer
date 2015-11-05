@@ -1,0 +1,15 @@
+---
+
+- name: Rename default template
+  local_action: command bash -c "mv roles/proxy-update/templates/default.j2 roles/proxy-update/templates/{{ filename }}.j2"
+
+- name: Copy custom template to proxy server
+  sudo: true
+  template: src={{ filename }}.j2 dest=/etc/nginx/locations/{{ filename }}.location
+
+- name: Rename template back to default
+  local_action: command bash -c "mv roles/proxy-update/templates/{{ filename }}.j2 roles/proxy-update/templates/default.j2"
+
+- name: Restarting nginx
+  sudo: true
+  service: name=nginx state=restarted
